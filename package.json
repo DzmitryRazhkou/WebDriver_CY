@@ -1,0 +1,14 @@
+{
+  "name": "webdriver_test_cy",
+  "version": "1.0.0",
+  "description": "The Project Has Been Created for Performance Purposes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dzmitry Razhkou",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.3.0"
+  }
+}

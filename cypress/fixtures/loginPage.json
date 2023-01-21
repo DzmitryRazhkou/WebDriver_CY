@@ -1,0 +1,12 @@
+{
+  "validCredentials": {
+    "userName": "tomsmith",
+    "password": "SuperSecretPassword!",
+    "successMessage": "You logged into a secure area!"
+  },
+  "invalidCredentilas": {
+    "userName": "toms_mith",
+    "password": "Super_Secret_Password!",
+    "invalidPasswordMessage": "Your username is invalid!"
+  }
+}
