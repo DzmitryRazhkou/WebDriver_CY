@@ -3,12 +3,14 @@ import CheckBoxPage from "../po/CheckBoxPage";
 import ContextMenuPage from "../po/ContextMenuPage";
 import DragAndDropPage from "../po/DragAndDropPage";
 import DropDownPage from "../po/DropDownPage";
+import DynamicContentPage from "../po/DynamicContentPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
 const contextMenuPage = new ContextMenuPage();
 const dragAndDropPage = new DragAndDropPage();
 const dropDownPage = new DropDownPage();
+const dynamicContentPage = new DynamicContentPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
@@ -89,5 +91,22 @@ describe("WedDriver Cypress Test", () => {
 
     dropDownPage.selectDropDown(option1, value1);
     dropDownPage.selectDropDown(option2, value2);
+  });
+
+  it("Dynamic Content Page Test", () => {
+    cy.launch("dynamicContentUrl");
+    let imageListBeforeRefreshPage = dynamicContentPage.getListOfImages();
+    let contentListBeforeRefreshPage = dynamicContentPage.getContentList();
+    dynamicContentPage.refreshPage();
+    let imageListAfterRefreshPage = dynamicContentPage.getListOfImages();
+    let contentListAfterRefreshPage = dynamicContentPage.getContentList();
+    dynamicContentPage.assertNotEqual(
+      imageListBeforeRefreshPage,
+      imageListAfterRefreshPage
+    );
+    dynamicContentPage.assertNotEqual(
+      contentListBeforeRefreshPage,
+      contentListAfterRefreshPage
+    );
   });
 });
