@@ -1,0 +1,10 @@
+{
+  "remove_add": {
+    "removeMsg": "It's gone!",
+    "addMsg": "It's back!"
+  },
+  "enabled_disabled": {
+    "enabled": "It's enabled!",
+    "disabled": "It's disabled!"
+  }
+}

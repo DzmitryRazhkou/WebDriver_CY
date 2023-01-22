@@ -4,6 +4,7 @@ import ContextMenuPage from "../po/ContextMenuPage";
 import DragAndDropPage from "../po/DragAndDropPage";
 import DropDownPage from "../po/DropDownPage";
 import DynamicContentPage from "../po/DynamicContentPage";
+import DynamicControlsPage from "../po/DynamicControlsPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -11,11 +12,13 @@ const contextMenuPage = new ContextMenuPage();
 const dragAndDropPage = new DragAndDropPage();
 const dropDownPage = new DropDownPage();
 const dynamicContentPage = new DynamicContentPage();
+const dynamicControlsPage = new DynamicControlsPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
 let dataDragAndDropPage;
 let dataDropDownPage;
+let dataDynamicControlsPage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -38,6 +41,10 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("dropDown").then((data) => {
       dataDropDownPage = data;
       return dataDropDownPage;
+    });
+    cy.fixture("dynamicControls").then((data) => {
+      dataDynamicControlsPage = data;
+      return dataDynamicControlsPage;
     });
   });
 
@@ -108,5 +115,29 @@ describe("WedDriver Cypress Test", () => {
       contentListBeforeRefreshPage,
       contentListAfterRefreshPage
     );
+  });
+
+  it("Dynamic Controls Page Test", () => {
+    const removeMsg = dataDynamicControlsPage.remove_add.removeMsg;
+    const addMsg = dataDynamicControlsPage.remove_add.addMsg;
+    const enabled = dataDynamicControlsPage.enabled_disabled.enabled;
+    const disabled = dataDynamicControlsPage.enabled_disabled.disabled;
+
+    cy.launch("dynamicControlsUrl");
+
+    cy.log(" =====> REMOVE/ADD CHECKBOXES <===== ");
+    dynamicControlsPage.doClickCheckBox();
+    dynamicControlsPage.doRemoveAddCheckBox();
+    dynamicControlsPage.isMessageDisplayed(removeMsg);
+
+    dynamicControlsPage.doRemoveAddCheckBox();
+    dynamicControlsPage.isMessageDisplayed(addMsg);
+
+    cy.log(" =====> ENABLED/DISABLED <===== ");
+    dynamicControlsPage.doClickOnEnableDisable();
+    dynamicControlsPage.isMessageDisplayed(enabled);
+
+    dynamicControlsPage.doClickOnEnableDisable();
+    dynamicControlsPage.isMessageDisplayed(disabled);
   });
 });
