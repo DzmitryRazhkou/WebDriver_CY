@@ -5,6 +5,8 @@ import DragAndDropPage from "../po/DragAndDropPage";
 import DropDownPage from "../po/DropDownPage";
 import DynamicContentPage from "../po/DynamicContentPage";
 import DynamicControlsPage from "../po/DynamicControlsPage";
+import DynamicLoadingPage from "../po/DynamicLoadingPage";
+import FileDownloadPage from "../po/FileDownloadPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -13,12 +15,16 @@ const dragAndDropPage = new DragAndDropPage();
 const dropDownPage = new DropDownPage();
 const dynamicContentPage = new DynamicContentPage();
 const dynamicControlsPage = new DynamicControlsPage();
+const dynamicLoadingPage = new DynamicLoadingPage();
+const fileDownloadPage = new FileDownloadPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
 let dataDragAndDropPage;
 let dataDropDownPage;
 let dataDynamicControlsPage;
+let dataDynamicLoadingPage;
+let dataFileDownloadPage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -45,6 +51,14 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("dynamicControls").then((data) => {
       dataDynamicControlsPage = data;
       return dataDynamicControlsPage;
+    });
+    cy.fixture("dynamicLoading").then((data) => {
+      dataDynamicLoadingPage = data;
+      return dataDynamicLoadingPage;
+    });
+    cy.fixture("fileDownload").then((data) => {
+      dataFileDownloadPage = data;
+      return dataFileDownloadPage;
     });
   });
 
@@ -139,5 +153,23 @@ describe("WedDriver Cypress Test", () => {
 
     dynamicControlsPage.doClickOnEnableDisable();
     dynamicControlsPage.isMessageDisplayed(disabled);
+  });
+
+  it("Dynamic Loading Page Test", () => {
+    const helloHeaderTxt = dataDynamicLoadingPage.helloHeaderTxt;
+
+    cy.launch("dynamicLoadingUrl");
+    dynamicLoadingPage.doClickStartBtn();
+    dynamicLoadingPage.isHelloHeaderDisplayed(helloHeaderTxt);
+  });
+
+  it("File Download Page Test", () => {
+    const url = dataFileDownloadPage.downloadUrl;
+    const path = dataFileDownloadPage.downloadFolderPath;
+    const file = dataFileDownloadPage.fileName;
+
+    cy.launch("fileDownloadUrl");
+    fileDownloadPage.clickDownloadFile(url, path, file);
+    fileDownloadPage.validateExistFile(file);
   });
 });

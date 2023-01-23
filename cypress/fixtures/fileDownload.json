@@ -1,0 +1,5 @@
+{
+  "downloadUrl": "http://localhost:7080/download/some-file.txt",
+  "downloadFolderPath": "cypress/downloads",
+  "fileName": "some-file.txt"
+}

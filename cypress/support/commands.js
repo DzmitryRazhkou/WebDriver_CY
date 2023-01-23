@@ -9,13 +9,18 @@
 // ***********************************************
 //
 //
+require("cypress-downloadfile/lib/downloadFileCommand");
 // -- This is a parent command --
+
+//commands.js
+require("cy-verify-downloads").addCustomCommand();
+
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
 
 Cypress.Commands.add("launch", (url) => {
   cy.viewport("macbook-16");
-  cy.log(" =====> User navigates on the " + " <===== ");
+  cy.log(" =====> USER NAVIGATES ON THE " + url + " <===== ");
   cy.visit(Cypress.env(url));
 });
 

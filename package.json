@@ -9,6 +9,10 @@
   "author": "Dzmitry Razhkou",
   "license": "ISC",
   "devDependencies": {
+    "cy-verify-downloads": "^0.1.11",
     "cypress": "^12.3.0"
+  },
+  "dependencies": {
+    "cypress-downloadfile": "^1.2.3"
   }
 }
