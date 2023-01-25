@@ -14,6 +14,7 @@ require("cypress-downloadfile/lib/downloadFileCommand");
 
 //commands.js
 require("cy-verify-downloads").addCustomCommand();
+import "cypress-file-upload";
 
 // Cypress.Commands.add('login', (email, password) => { ... })
 //

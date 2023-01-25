@@ -7,6 +7,7 @@ import DynamicContentPage from "../po/DynamicContentPage";
 import DynamicControlsPage from "../po/DynamicControlsPage";
 import DynamicLoadingPage from "../po/DynamicLoadingPage";
 import FileDownloadPage from "../po/FileDownloadPage";
+import FileUploadPage from "../po/FileUploadPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -17,6 +18,7 @@ const dynamicContentPage = new DynamicContentPage();
 const dynamicControlsPage = new DynamicControlsPage();
 const dynamicLoadingPage = new DynamicLoadingPage();
 const fileDownloadPage = new FileDownloadPage();
+const fileUploadPage = new FileUploadPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
@@ -25,6 +27,7 @@ let dataDropDownPage;
 let dataDynamicControlsPage;
 let dataDynamicLoadingPage;
 let dataFileDownloadPage;
+let dataFileUploadPage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -59,6 +62,10 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("fileDownload").then((data) => {
       dataFileDownloadPage = data;
       return dataFileDownloadPage;
+    });
+    cy.fixture("fileUpload").then((data) => {
+      dataFileUploadPage = data;
+      return dataFileUploadPage;
     });
   });
 
@@ -171,5 +178,23 @@ describe("WedDriver Cypress Test", () => {
     cy.launch("fileDownloadUrl");
     fileDownloadPage.clickDownloadFile(url, path, file);
     fileDownloadPage.validateExistFile(file);
+  });
+
+  it("File Upload Page Test", () => {
+    const filePath = dataFileUploadPage.filePath;
+    const uploadMsg = dataFileUploadPage.uploadMsg;
+
+    cy.launch("fileUploadUrl");
+    fileUploadPage.fileUpload(filePath);
+    fileUploadPage.validateExistFile(uploadMsg);
+  });
+
+  it.only("Floating Menu Page Test", () => {
+    const filePath = dataFileUploadPage.filePath;
+    const uploadMsg = dataFileUploadPage.uploadMsg;
+
+    cy.launch("fileUploadUrl");
+    fileUploadPage.fileUpload(filePath);
+    fileUploadPage.validateExistFile(uploadMsg);
   });
 });
