@@ -1,3 +1,4 @@
+import { Faker, faker } from "@faker-js/faker";
 import LoginSuccessPage from "../po/LoginSuccessPage";
 import CheckBoxPage from "../po/CheckBoxPage";
 import ContextMenuPage from "../po/ContextMenuPage";
@@ -8,6 +9,9 @@ import DynamicControlsPage from "../po/DynamicControlsPage";
 import DynamicLoadingPage from "../po/DynamicLoadingPage";
 import FileDownloadPage from "../po/FileDownloadPage";
 import FileUploadPage from "../po/FileUploadPage";
+import FloatingMenuPage from "../po/FloatingMenuPage";
+import IframePage from "../po/IframePage";
+import MouseHoverPage from "../po/MouseHoverPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -19,6 +23,9 @@ const dynamicControlsPage = new DynamicControlsPage();
 const dynamicLoadingPage = new DynamicLoadingPage();
 const fileDownloadPage = new FileDownloadPage();
 const fileUploadPage = new FileUploadPage();
+const floatingMenuPage = new FloatingMenuPage();
+const iframePage = new IframePage();
+const mouseHoverPage = new MouseHoverPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
@@ -28,6 +35,9 @@ let dataDynamicControlsPage;
 let dataDynamicLoadingPage;
 let dataFileDownloadPage;
 let dataFileUploadPage;
+let dataFloatingMenuPage;
+let dataIframePage;
+let dataMouseHoverPage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -66,6 +76,18 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("fileUpload").then((data) => {
       dataFileUploadPage = data;
       return dataFileUploadPage;
+    });
+    cy.fixture("floatingMenu").then((data) => {
+      dataFloatingMenuPage = data;
+      return dataFloatingMenuPage;
+    });
+    cy.fixture("iframe").then((data) => {
+      dataIframePage = data;
+      return dataIframePage;
+    });
+    cy.fixture("mouseHover").then((data) => {
+      dataMouseHoverPage = data;
+      return dataMouseHoverPage;
     });
   });
 
@@ -189,12 +211,37 @@ describe("WedDriver Cypress Test", () => {
     fileUploadPage.validateExistFile(uploadMsg);
   });
 
-  it.only("Floating Menu Page Test", () => {
-    const filePath = dataFileUploadPage.filePath;
-    const uploadMsg = dataFileUploadPage.uploadMsg;
+  it("Floating Menu Page Test", () => {
+    const first = dataFloatingMenuPage.first;
+    const second = dataFloatingMenuPage.second;
+    const third = dataFloatingMenuPage.third;
+    const fourth = dataFloatingMenuPage.fourth;
 
-    cy.launch("fileUploadUrl");
-    fileUploadPage.fileUpload(filePath);
-    fileUploadPage.validateExistFile(uploadMsg);
+    cy.launch("floatingMenuUrl");
+    floatingMenuPage.doScrollDown();
+    floatingMenuPage.isFloatingMenuDisplayed(first, second, third, fourth);
+    floatingMenuPage.doScrollUp();
+    floatingMenuPage.isFloatingMenuDisplayed(first, second, third, fourth);
+  });
+
+  it("Iframe Page Test", () => {
+    const existingTxt = dataIframePage.existingTxt;
+    const proposalTxt = faker.company.name();
+
+    cy.launch("iFrameUrl");
+    iframePage.closeAlert();
+    iframePage.switchToFrameSendTxt(existingTxt, proposalTxt);
+  });
+
+  it("Mouse Hover Page Test", () => {
+    const length = dataMouseHoverPage.length;
+
+    const us1 = dataMouseHoverPage.us1;
+    const us2 = dataMouseHoverPage.us2;
+    const us3 = dataMouseHoverPage.us3;
+    const listOfTxt = [us1, us2, us3];
+
+    cy.launch("mouseHoverUrl");
+    mouseHoverPage.areFiguresDisplayed(listOfTxt, length);
   });
 });

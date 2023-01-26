@@ -9,6 +9,7 @@
   "author": "Dzmitry Razhkou",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "cy-verify-downloads": "^0.1.11",
     "cypress": "^12.3.0",
     "cypress-file-upload": "^5.0.8"
