@@ -5,6 +5,9 @@
 // This is a great place to put global configuration and
 // behavior that modifies Cypress.
 //
+const registerCypressGrep = require("@cypress/grep");
+registerCypressGrep();
+
 // You can change the location of this file or turn off
 // automatically serving support files with the
 // 'supportFile' configuration option.
@@ -13,9 +16,19 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+Cypress.on("window:before:load", (win) => {
+  cy.stub(win.console, "error").callsFake((msg) => {
+    // log out to the ternimal
+    cy.now("task", "error", msg);
+    // log to Command Log and Fail the test
+    throw new Error(msg);
+  });
+});
+
 // Import commands.js using ES2015 syntax:
 import "./commands";
 
+import "cypress-axe";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 

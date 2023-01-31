@@ -5,15 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/cypress run",
-    "cy:firefox": "npx cypress run --spec cypress/integration/test/*.js --browser firefox"
+    "cy:firefox": "npx cypress run --spec cypress/integration/test/*.js --browser firefox",
+    "cy:chrome": "npx cypress run --spec cypress/integration/test/*js --browser chrome",
+    "cy:firefox_@smoke": "npx cypress run --spec cypress/integration/test/*.js --browser firefox --env grepTags=@smoke",
+    "cy:dashboard": "npx cypress run --record --key 732372a8-6284-4907-8aff-de820e231fb6 --browser chrome"
   },
   "author": "Dzmitry Razhkou",
   "license": "ISC",
   "devDependencies": {
+    "@cypress/grep": "^3.1.3",
     "@faker-js/faker": "^7.6.0",
     "@shelex/cypress-allure-plugin": "^2.34.0",
     "cy-verify-downloads": "^0.1.11",
     "cypress": "^12.3.0",
+    "cypress-axe": "^1.3.0",
     "cypress-file-upload": "^5.0.8"
   },
   "dependencies": {

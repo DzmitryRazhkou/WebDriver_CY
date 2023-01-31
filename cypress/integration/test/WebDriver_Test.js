@@ -98,7 +98,13 @@ describe("WedDriver Cypress Test", () => {
     });
   });
 
-  it("Login Success Page Test", () => {
+  it.skip("Accessibility With AXE-CORE", () => {
+    cy.injectAxe();
+    cy.checkA11y();
+    cy.checkA11y({ exclude: ["index-cfc4ceaa.js:101712"] });
+  });
+
+  it("Login Success Page Test", { tags: ["@smoke", "@regression"] }, () => {
     cy.launch("loginSuccessUrl");
     const userName = dataLoginPage.validCredentials.userName;
     const psw = dataLoginPage.validCredentials.password;
@@ -117,7 +123,7 @@ describe("WedDriver Cypress Test", () => {
     loginSuccessPage.getInvalidPasswordMessage(invalidPasswordMessage);
   });
 
-  it("CheckBox Page Test", () => {
+  it("CheckBox Page Test", { tags: ["@smoke"] }, () => {
     cy.launch("checkBoxUrl");
     checkBoxPage.getCheckBox1();
     checkBoxPage.getCheckBox2();
@@ -131,7 +137,7 @@ describe("WedDriver Cypress Test", () => {
     contextMenuPage.alertHandled(alertMessage);
   });
 
-  it("Drag And Drop Page Test", () => {
+  it("Drag And Drop Page Test", { tags: ["@smoke", "@regression"] }, () => {
     cy.launch("dragAndDropUrl");
     const box_A = dataDragAndDropPage.box_A;
     const box_B = dataDragAndDropPage.box_B;
@@ -217,7 +223,7 @@ describe("WedDriver Cypress Test", () => {
     fileUploadPage.validateExistFile(uploadMsg);
   });
 
-  it("Floating Menu Page Test", () => {
+  it("Floating Menu Page Test", { tags: ["@smoke", "@regression"] }, () => {
     const first = dataFloatingMenuPage.first;
     const second = dataFloatingMenuPage.second;
     const third = dataFloatingMenuPage.third;
@@ -251,7 +257,7 @@ describe("WedDriver Cypress Test", () => {
     mouseHoverPage.areFiguresDisplayed(listOfTxt, length);
   });
 
-  it("JavaScript Alerts Page Test", () => {
+  it("JavaScript Alerts Page Test", { tags: ["@smoke", "@regression"] }, () => {
     const jsAlertInsideMsg = dataJavaScriptAlertsPage.jsAlertInsideMsg;
     const jsAlert = dataJavaScriptAlertsPage.jsAlert;
     const jsConfirmInsideMsg = dataJavaScriptAlertsPage.jsConfirmInsideMsg;

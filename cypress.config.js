@@ -8,6 +8,7 @@ module.exports = defineConfig({
   defaultCommandTimeout: 20000,
   pageLoadTimeout: 30000,
   failOnStausCode: false,
+  projectId: "jxjsus",
 
   env: {
     baseUrl: "http://localhost:7080",
@@ -36,6 +37,8 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       on("task", { downloadFile });
       on("task", { isFileExist, findFiles });
+      require("@cypress/grep/src/plugin")(config);
+      return config;
     },
     specPattern: "cypress/integration/test/*.js",
   },
