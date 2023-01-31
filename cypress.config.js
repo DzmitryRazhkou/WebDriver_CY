@@ -1,6 +1,7 @@
 const { defineConfig } = require("cypress");
 const { downloadFile } = require("cypress-downloadfile/lib/addPlugin");
 const { isFileExist, findFiles } = require("cy-verify-downloads");
+const allureWriter = require("@shelex/cypress-allure-plugin/writer");
 
 module.exports = defineConfig({
   chromeWebSecurity: true,

@@ -1,0 +1,7 @@
+{
+  "jsAlertInsideMsg": "I am a JS Alert",
+  "jsAlert": "You successfuly clicked an alert",
+  "jsConfirmInsideMsg": "I am a JS Confirm",
+  "jsConfirm": "You clicked: Ok",
+  "jsPrompt": "You entered:"
+}

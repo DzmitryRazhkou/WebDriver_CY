@@ -4,12 +4,14 @@
   "description": "The Project Has Been Created for Performance Purposes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/cypress run",
+    "cy:firefox": "npx cypress run --spec cypress/integration/test/*.js --browser firefox"
   },
   "author": "Dzmitry Razhkou",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@shelex/cypress-allure-plugin": "^2.34.0",
     "cy-verify-downloads": "^0.1.11",
     "cypress": "^12.3.0",
     "cypress-file-upload": "^5.0.8"

@@ -23,6 +23,8 @@ Cypress.Commands.add("launch", (url) => {
   cy.viewport("macbook-16");
   cy.log(" =====> USER NAVIGATES ON THE " + url + " <===== ");
   cy.visit(Cypress.env(url));
+  cy.location("protocol").should("contain", "http");
+  // cy.location("hostname").should("contain", "localhost:7080");
 });
 
 //

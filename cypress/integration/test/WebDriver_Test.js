@@ -1,4 +1,4 @@
-import { Faker, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import LoginSuccessPage from "../po/LoginSuccessPage";
 import CheckBoxPage from "../po/CheckBoxPage";
 import ContextMenuPage from "../po/ContextMenuPage";
@@ -12,6 +12,7 @@ import FileUploadPage from "../po/FileUploadPage";
 import FloatingMenuPage from "../po/FloatingMenuPage";
 import IframePage from "../po/IframePage";
 import MouseHoverPage from "../po/MouseHoverPage";
+import JavaScriptAlertsPage from "../po/JavaScriptAlertsPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -26,6 +27,7 @@ const fileUploadPage = new FileUploadPage();
 const floatingMenuPage = new FloatingMenuPage();
 const iframePage = new IframePage();
 const mouseHoverPage = new MouseHoverPage();
+const javaScriptAlertsPage = new JavaScriptAlertsPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
@@ -38,6 +40,7 @@ let dataFileUploadPage;
 let dataFloatingMenuPage;
 let dataIframePage;
 let dataMouseHoverPage;
+let dataJavaScriptAlertsPage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -88,6 +91,10 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("mouseHover").then((data) => {
       dataMouseHoverPage = data;
       return dataMouseHoverPage;
+    });
+    cy.fixture("javaScriptAlerts").then((data) => {
+      dataJavaScriptAlertsPage = data;
+      return dataJavaScriptAlertsPage;
     });
   });
 
@@ -167,7 +174,6 @@ describe("WedDriver Cypress Test", () => {
     const disabled = dataDynamicControlsPage.enabled_disabled.disabled;
 
     cy.launch("dynamicControlsUrl");
-
     cy.log(" =====> REMOVE/ADD CHECKBOXES <===== ");
     dynamicControlsPage.doClickCheckBox();
     dynamicControlsPage.doRemoveAddCheckBox();
@@ -243,5 +249,32 @@ describe("WedDriver Cypress Test", () => {
 
     cy.launch("mouseHoverUrl");
     mouseHoverPage.areFiguresDisplayed(listOfTxt, length);
+  });
+
+  it("JavaScript Alerts Page Test", () => {
+    const jsAlertInsideMsg = dataJavaScriptAlertsPage.jsAlertInsideMsg;
+    const jsAlert = dataJavaScriptAlertsPage.jsAlert;
+    const jsConfirmInsideMsg = dataJavaScriptAlertsPage.jsConfirmInsideMsg;
+    const jsConfirm = dataJavaScriptAlertsPage.jsConfirm;
+    const promptTxt = faker.company.name();
+    const jsPrompt = dataJavaScriptAlertsPage.jsPrompt + " " + promptTxt;
+
+    cy.launch("javaScriptAlertsUrl");
+
+    /* First Way */
+    javaScriptAlertsPage.clickJSAlert();
+    javaScriptAlertsPage.confirmFirstWay(jsAlertInsideMsg);
+    javaScriptAlertsPage.getAlertMessage(jsAlert);
+
+    /* Second Way */
+    javaScriptAlertsPage.clickJSAlert();
+    javaScriptAlertsPage.confirmSecondWay(jsAlertInsideMsg);
+    javaScriptAlertsPage.getAlertMessage(jsAlert);
+
+    javaScriptAlertsPage.clickJSConfirm();
+    javaScriptAlertsPage.handleJSConfrim(jsConfirmInsideMsg);
+    javaScriptAlertsPage.getAlertMessage(jsConfirm);
+
+    javaScriptAlertsPage.handleJSPrompt(promptTxt, jsPrompt);
   });
 });
