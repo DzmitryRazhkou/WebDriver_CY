@@ -11,5 +11,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-        browser: firefox
           spec: cypress/integration/test/WebDriver_Test.js
+          browser: firefox
