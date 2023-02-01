@@ -13,12 +13,3 @@ steps:
         uses: actions/checkout@v3
         run: npm install
         run: npx cypress run --record --key 732372a8-6284-4907-8aff-de820e231fb6 --browser chrome 
-
-  with:
-          record: true
-          parallel: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
