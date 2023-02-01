@@ -37,6 +37,14 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       on("task", { downloadFile });
       on("task", { isFileExist, findFiles });
+
+      on("task", {
+        log(msg) {
+          console.log(msg);
+          return null;
+        },
+      });
+
       require("@cypress/grep/src/plugin")(config);
       return config;
     },

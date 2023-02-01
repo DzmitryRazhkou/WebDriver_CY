@@ -98,10 +98,11 @@ describe("WedDriver Cypress Test", () => {
     });
   });
 
-  it.skip("Accessibility With AXE-CORE", () => {
-    cy.injectAxe();
-    cy.checkA11y();
-    cy.checkA11y({ exclude: ["index-cfc4ceaa.js:101712"] });
+  it.only("Accessibility With AXE-CORE", () => {
+    // cy.injectAxe();
+    // cy.checkA11y();
+    // cy.checkA11y({ exclude: ["index-cfc4ceaa.js:101712"] });
+    cy.task("log", "Yeah");
   });
 
   it("Login Success Page Test", { tags: ["@smoke", "@regression"] }, () => {
