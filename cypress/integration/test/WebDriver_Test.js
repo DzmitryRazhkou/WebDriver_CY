@@ -98,7 +98,7 @@ describe("WedDriver Cypress Test", () => {
     });
   });
 
-  it.only("Accessibility With AXE-CORE", () => {
+  it.skip("Accessibility With AXE-CORE", () => {
     // cy.injectAxe();
     // cy.checkA11y();
     // cy.checkA11y({ exclude: ["index-cfc4ceaa.js:101712"] });
