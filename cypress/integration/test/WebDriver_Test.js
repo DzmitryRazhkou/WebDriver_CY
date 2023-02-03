@@ -13,6 +13,8 @@ import FloatingMenuPage from "../po/FloatingMenuPage";
 import IframePage from "../po/IframePage";
 import MouseHoverPage from "../po/MouseHoverPage";
 import JavaScriptAlertsPage from "../po/JavaScriptAlertsPage";
+import JavaScriptErrorPage from "../po/JavaScriptErrorPage";
+import OpenNewTabPage from "../po/OpenNewTabPage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -28,6 +30,8 @@ const floatingMenuPage = new FloatingMenuPage();
 const iframePage = new IframePage();
 const mouseHoverPage = new MouseHoverPage();
 const javaScriptAlertsPage = new JavaScriptAlertsPage();
+const javaScriptErrorPage = new JavaScriptErrorPage();
+const openNewTabPage = new OpenNewTabPage();
 
 let dataLoginPage;
 let dataContextMenuPage;
@@ -41,6 +45,8 @@ let dataFloatingMenuPage;
 let dataIframePage;
 let dataMouseHoverPage;
 let dataJavaScriptAlertsPage;
+let dataJavaScriptErrorPage;
+let dataOpenNewTabPage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -95,6 +101,14 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("javaScriptAlerts").then((data) => {
       dataJavaScriptAlertsPage = data;
       return dataJavaScriptAlertsPage;
+    });
+    cy.fixture("javaScriptError").then((data) => {
+      dataJavaScriptErrorPage = data;
+      return dataJavaScriptErrorPage;
+    });
+    cy.fixture("openNewTab").then((data) => {
+      dataOpenNewTabPage = data;
+      return dataOpenNewTabPage;
     });
   });
 
@@ -283,5 +297,20 @@ describe("WedDriver Cypress Test", () => {
     javaScriptAlertsPage.getAlertMessage(jsConfirm);
 
     javaScriptAlertsPage.handleJSPrompt(promptTxt, jsPrompt);
+  });
+
+  it("JavaScript Error Page Test", () => {
+    const jsErrorMsg = dataJavaScriptErrorPage.jsError;
+
+    javaScriptErrorPage.handleJSError(jsErrorMsg);
+    cy.launch("javaScriptErrorUrl");
+  });
+
+  it.only("Opening A New Tab Test", () => {
+    const childPageTitle = dataOpenNewTabPage.childPageTitle;
+
+    cy.launch("openNewTabUrl");
+    openNewTabPage.clickOnTheLink();
+    openNewTabPage.validateChildPage(childPageTitle);
   });
 });

@@ -37,3 +37,17 @@ Cypress.on("uncaught:exception", (err, runnable) => {
   // failing the test
   return false;
 });
+
+// Cypress.on("window:before:load", (win) => {
+//   cy.stub(win.console, "log", (msg) => {
+//     cy.task("log", `console.log --> ${msg}`);
+//   });
+//   cy.stub(win.console, "error", (msg) => {
+//     cy.task("log", `console.error --> ${msg}`);
+//   });
+// });
+
+// if ((win.console.error as any).restore) {
+//   (win.console.error as any).restore();
+// }
+// cy.spy(win.console, 'error');
