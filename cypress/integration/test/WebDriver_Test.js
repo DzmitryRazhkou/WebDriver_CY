@@ -15,6 +15,7 @@ import MouseHoverPage from "../po/MouseHoverPage";
 import JavaScriptAlertsPage from "../po/JavaScriptAlertsPage";
 import JavaScriptErrorPage from "../po/JavaScriptErrorPage";
 import OpenNewTabPage from "../po/OpenNewTabPage";
+import NotificationMessagePage from "../po/NotificationMessagePage";
 
 const loginSuccessPage = new LoginSuccessPage();
 const checkBoxPage = new CheckBoxPage();
@@ -32,6 +33,7 @@ const mouseHoverPage = new MouseHoverPage();
 const javaScriptAlertsPage = new JavaScriptAlertsPage();
 const javaScriptErrorPage = new JavaScriptErrorPage();
 const openNewTabPage = new OpenNewTabPage();
+const notificationMessagePage = new NotificationMessagePage();
 
 let dataLoginPage;
 let dataContextMenuPage;
@@ -47,6 +49,7 @@ let dataMouseHoverPage;
 let dataJavaScriptAlertsPage;
 let dataJavaScriptErrorPage;
 let dataOpenNewTabPage;
+let dataNotificationMessage;
 
 describe("WedDriver Cypress Test", () => {
   beforeEach(function () {
@@ -109,6 +112,10 @@ describe("WedDriver Cypress Test", () => {
     cy.fixture("openNewTab").then((data) => {
       dataOpenNewTabPage = data;
       return dataOpenNewTabPage;
+    });
+    cy.fixture("notificationMessage").then((data) => {
+      dataNotificationMessage = data;
+      return dataNotificationMessage;
     });
   });
 
@@ -306,11 +313,23 @@ describe("WedDriver Cypress Test", () => {
     cy.launch("javaScriptErrorUrl");
   });
 
-  it.only("Opening A New Tab Test", () => {
+  it("Opening A New Tab Test", () => {
     const childPageTitle = dataOpenNewTabPage.childPageTitle;
 
     cy.launch("openNewTabUrl");
     openNewTabPage.clickOnTheLink();
     openNewTabPage.validateChildPage(childPageTitle);
+  });
+
+  it("Notification Message Test", () => {
+    const msg1 = dataNotificationMessage.msg1;
+    const msg2 = dataNotificationMessage.msg2;
+    const msg3 = dataNotificationMessage.msg3;
+
+    const howManyTimes = dataNotificationMessage.times;
+    const listOfAlerts = [msg1, msg2, msg3];
+
+    cy.launch("notificationMessageUrl");
+    notificationMessagePage.clickLinkVerifyMessages(listOfAlerts, howManyTimes);
   });
 });
